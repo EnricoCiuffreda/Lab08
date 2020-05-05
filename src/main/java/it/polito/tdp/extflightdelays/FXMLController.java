@@ -35,8 +35,23 @@ public class FXMLController {
 
     @FXML
     void doAnalizzaAeroporti(ActionEvent event) {
+    	
+    	
     	String xs=distanzaMinima.getText();
-    	Integer x=Integer.parseInt(xs);
+    	if(xs.equals("")) {
+    		xs="0";
+    	}
+    	Integer x;
+    	try {
+    	x=Integer.parseInt(xs);
+    	} catch(NumberFormatException e) {
+    		txtResult.setText("Devi inserire un numero\n");
+    		return;
+    	}
+    	if(x<0) {
+    		txtResult.setText("Devi inserire un numero maggiore di 0 \n");
+    		return;
+    	}
     	model.creaGrafo(x);
     	txtResult.appendText(String.valueOf(model.Contavertici())+"\n");
     	txtResult.appendText(String.valueOf(model.Contaarchi())+"\n");
